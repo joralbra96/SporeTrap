@@ -4,8 +4,9 @@
 
 BlowerFan::BlowerFan(int pwmPin, FlowSensor& flowsensor_ref)
   : flowSensor(flowsensor_ref) {
-  ledcSetup(ledChannel, freq, resolution);
-  ledcAttachPin(pwmPin, ledChannel);
+  //ledcSetup(ledChannel, freq, resolution);
+  //ledcAttachPin(pwmPin, ledChannel);
+  ledcAttachChannel(pwmPin, freq, resolution, ledChannel);
 }
 
 void BlowerFan::runPWM(int pwmValue) {

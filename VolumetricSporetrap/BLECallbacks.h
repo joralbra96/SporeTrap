@@ -35,7 +35,8 @@ public:
   void onRead(BLECharacteristic* pChar) {
     // float flowValue = manager.getFlowValue();
     // pChar->setValue(flowValue);
-    std::string value = pChar->getValue();
+    String str_value = pChar->getValue();
+    std::string value = str_value.c_str();
     Serial.println("*********");
     Serial.println("LogsCharacteristicCallback 1 read request received: ");
     if (value.length() > 0) {
@@ -80,7 +81,8 @@ public:
 
 
   void onWrite(BLECharacteristic* pChar) {
-    std::string rxData = pChar->getValue();
+    String str_value = pChar->getValue();
+    std::string rxData = str_value.c_str();
 
     if (rxData.length() > 0) {
       Serial.println("LogsCharacteristicCallback 1 write request received: ");
@@ -105,7 +107,8 @@ public:
 
 
   void onWrite(BLECharacteristic* pChar) {
-    std::string rxData = pChar->getValue();
+    String str_data = pChar->getValue();
+    std::string rxData = str_data.c_str();
     if (!updateFlag) {  //If it's the first packet of OTA since bootup, begin OTA
       Serial.println("BeginOTA");
       esp_ota_begin(esp_ota_get_next_update_partition(NULL), OTA_SIZE_UNKNOWN, &otaHandler);
@@ -153,7 +156,8 @@ public:
   void onRead(BLECharacteristic* pChar) {
     float flowValue = manager.getFlowValue();
     pChar->setValue(flowValue);
-    std::string value = pChar->getValue();
+    String str_data = pChar->getValue();
+    std::string value = str_data.c_str();
     Serial.println("*********");
     Serial.println("FlowValueCharacteristic 1 read request received: ");
     if (value.length() > 0) {
@@ -184,8 +188,9 @@ public:
   void onRead(BLECharacteristic* pChar) {
     String deviceName = manager.getDeviceName();
     std::string deviceNamestr = std::string(deviceName.c_str());
-    pChar->setValue(deviceNamestr);
-    std::string value = pChar->getValue();
+    pChar->setValue(deviceNamestr.c_str());
+    String str_data = pChar->getValue();
+    std::string value = str_data.c_str();
     Serial.println("*********");
     Serial.println("NameCharacteristic 1 read request received: ");
     if (value.length() > 0) {
@@ -200,7 +205,8 @@ public:
   }
 
   void onWrite(BLECharacteristic* pChar) {
-    std::string value = pChar->getValue();
+    String str_data = pChar->getValue();
+    std::string value = str_data.c_str();
     Serial.println("*********");
     Serial.println("NameCharacteristic 1 write request received: ");
     if (value.length() > 0) {
@@ -228,7 +234,8 @@ public:
     // float value1 = map(random(10000), 0, 10000, 1, 10);
     float value1 = manager.getVoltageValue();
     pChar->setValue(value1);
-    std::string value = pChar->getValue();
+    String std_data = pChar->getValue();
+    std::string value = std_data.c_str();
     Serial.println("*********");
     Serial.println("VoltageCharacteristic 1 read request received: ");
     if (value.length() > 0) {
@@ -261,7 +268,8 @@ public:
     uint32_t dateFormated = (uint32_t)date;
 
     pChar->setValue(dateFormated);
-    std::string value = pChar->getValue();
+    String str_data = pChar->getValue();
+    std::string value = str_data.c_str();
     Serial.println("*********");
     Serial.println("DateCharacteristic 1 read request received: ");
     if (value.length() > 0) {
@@ -283,7 +291,8 @@ public:
   }
 
   void onWrite(BLECharacteristic* pChar) {
-    std::string value = pChar->getValue();
+    String std_data = pChar->getValue();
+    std::string value = std_data.c_str();
     Serial.println("*********");
     Serial.println("DateCharacteristic 1 write request received: ");
     if (value.length() > 0) {
@@ -317,7 +326,8 @@ public:
     unsigned long utime = manager.getStartProgramDateTimestamp();
     uint32_t time = (uint32_t)utime;
     pChar->setValue(time);
-    std::string value = pChar->getValue();
+    String std_data = pChar->getValue();
+    std::string value = std_data.c_str();
     Serial.println("*********");
     Serial.println("DateCharacteristic 1 read request received: ");
     if (value.length() > 0) {
@@ -343,7 +353,8 @@ public:
   void onRead(BLECharacteristic* pChar) {
     float flowSetpointValue = manager.getFlowSetpoint();
     pChar->setValue(flowSetpointValue);
-    std::string value = pChar->getValue();
+    String std_data = pChar->getValue();
+    std::string value = std_data.c_str();
     Serial.println("*********");
     Serial.println("FlowSetpointCharacteristic 1 read request received: ");
     Serial.print("Value in float: ");
@@ -360,7 +371,8 @@ public:
   }
 
   void onWrite(BLECharacteristic* pChar) {
-    std::string value = pChar->getValue();
+    String std_data = pChar->getValue();
+    std::string value = std_data.c_str();
     Serial.println("*********");
     Serial.println("FlowSetpointCharacteristic 1 write request received: ");
     if (value.length() > 0) {
@@ -394,7 +406,8 @@ public:
     uint8_t workingModeBytes[1] = { workingMode };
 
     pChar->setValue(workingModeBytes, 1);
-    std::string value = pChar->getValue();
+    String std_data = pChar->getValue();
+    std::string value = std_data.c_str();
     Serial.println("*********");
     Serial.println("WorkingModeCharacteristic 1 read request received: ");
     if (value.length() > 0) {
@@ -409,7 +422,8 @@ public:
   }
 
   void onWrite(BLECharacteristic* pChar) {
-    std::string value = pChar->getValue();
+    String std_data = pChar->getValue();
+    std::string value = std_data.c_str();
     Serial.println("*********");
     Serial.println("WorkingModeCharacteristic 1 write request received: ");
     uint8_t* byteArray = pChar->getData();
@@ -441,7 +455,8 @@ public:
     uint8_t workingPeriod = manager.getWorkingPeriod();
     uint8_t workingPeriodBytes[1] = { workingPeriod };
     pChar->setValue(workingPeriodBytes, 1);
-    std::string value = pChar->getValue();
+    String str_data = pChar->getValue();
+    std::string value = str_data.c_str();
     Serial.println("*********");
     Serial.println("WorkingPeriodCharacteristic 1 read request received: ");
     if (value.length() > 0) {
@@ -456,7 +471,8 @@ public:
   }
 
   void onWrite(BLECharacteristic* pChar) {
-    std::string value = pChar->getValue();
+    String str_data = pChar->getValue();
+    std::string value = str_data.c_str();
     Serial.println("*********");
     Serial.println("WorkingPeriodCharacteristic 1 write request received: ");
 
